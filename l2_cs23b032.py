@@ -1,5 +1,7 @@
-import random 
-slots=1000
+import random
+import plotext as plt
+
+slots=10000
 n = 10
 p_values = [i / 10 for i in range(1, 11)]
 
@@ -32,4 +34,21 @@ for p in p_values:
 
 print("Empirical success probabilities:")
 print(empirical_results)
+with open("l2_cs23b032.txt", "w") as f:
+    f.write("p\tAnalytical\tEmpirical\n")
+    for i in range(len(p_values)):
+        f.write(f"{p_values[i]}\t{analytical_results[i]:.4f}\t{empirical_results[i]:.4f}\n")
 
+# Plot (DO NOT SHOW)
+plt.clear_data()
+plt.title("Slotted ALOHA Success Probability (n = 10)")
+plt.xlabel("Transmission Probability (p)")
+plt.ylabel("Success Probability")
+
+plt.plot(p_values, analytical_results,marker="dot", label="Analytical")
+plt.plot(p_values, empirical_results, label="Empirical")
+
+plt.show()
+
+# Save plot to file (TEXT PLOT)
+plt.savefig("l2_cs23b032_plot.txt")
